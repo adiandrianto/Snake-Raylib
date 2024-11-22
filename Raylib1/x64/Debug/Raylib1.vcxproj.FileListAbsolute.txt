@@ -1,0 +1,3 @@
+H:\Repo\Raylib1\x64\Debug\raylib.dll
+H:\Repo\Raylib1\x64\Debug\glfw3.dll
+H:\Repo\Raylib1\Raylib1\x64\Debug\Raylib1.vcxproj.Up2Date

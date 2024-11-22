@@ -1,0 +1,12 @@
+﻿  main.cpp
+H:\Repo\Raylib1\src\main.cpp(60,44): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(63,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(105,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(105,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(139,11): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(140,11): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(144,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Repo\Raylib1\src\main.cpp(145,12): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Raylib1.vcxproj -> H:\Repo\Raylib1\x64\Debug\Raylib1.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

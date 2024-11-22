@@ -8,6 +8,7 @@ int offset = 64;
 
 double lastUpdateTime = 0;
 
+bool gameOver = false;
 bool eventTriggered(double interval)
 {
 	double currentTime = GetTime();
@@ -43,7 +44,7 @@ public:
 
 	void Draw()
 	{
-		for (unsigned int i = 0; i < body.size(); i++)
+		for (unsigned int i = 1; i < body.size(); i++)
 		{
 			float x = body[i].x;
 			float y = body[i].y;
@@ -78,6 +79,14 @@ public:
 		{
 			body.pop_back();
 		}
+
+		for (unsigned int i = 1; i < body.size(); i++)
+		{
+			if (Vector2Equals(body[i], body[0]))
+			{
+				gameOver = true;
+			}
+		}
 	}
 };
 
@@ -111,6 +120,29 @@ class Game
 public:
 	Snake snake = Snake();
 	Food food = Food();
+	Sound eat;
+	Sound gameover;
+	Sound walk;
+
+	Game()
+	{
+		InitAudioDevice();
+		eat = LoadSound("eat.ogg");
+		gameover = LoadSound("gameover.ogg");	
+		walk = LoadSound("walk.ogg");
+	}
+
+	~Game()
+	{
+		CloseAudioDevice();
+		UnloadSound(eat);
+		UnloadSound(gameover);
+	}
+
+	void GameOver()
+	{
+		PlaySound(gameover);
+	}
 
 	void Draw()
 	{
@@ -129,6 +161,11 @@ public:
 		{
 			food.position = GenerateRandomPosition();
 			snake.addSegment = true;
+			PlaySound(eat);
+		}
+		else
+		{
+			PlaySound(walk);
 		}
 	}
 
@@ -147,13 +184,14 @@ public:
 
 		return Vector2{ x,y };
 	}
+
 };
 
 int main() 
 {
 	InitWindow(2*offset + cellSize * cellCount, 2*offset + cellSize * cellCount, "Raylib");
 
-	SetTargetFPS(60);
+	SetTargetFPS(30);
 
 	Game game = Game();
 
@@ -164,6 +202,13 @@ int main()
 		if (eventTriggered(0.2))
 		{
 			game.Update();
+			game.CheckCollisionWithFood();
+		}
+
+		if (gameOver)
+		{
+			game.GameOver();
+			gameOver == false;
 		}
 
 		if (IsKeyPressed(KEY_UP) && game.snake.direction.y != 1)
@@ -185,8 +230,7 @@ int main()
 
 		ClearBackground(DARKGREEN);
 		DrawRectangleLinesEx(Rectangle{ (float)offset - 5, (float)offset - 5, (float)cellSize * cellCount + 10, (float)cellSize * cellCount + 10 }, 5, BLACK);
-
-		game.CheckCollisionWithFood();
+		
 		game.Draw();
 
 		EndDrawing();
